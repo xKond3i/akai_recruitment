@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    accent-color: var(--c-theme);
+
+    // colors
+    --c-theme: #604bc9;
+    --c-black: #242424;
+    --c-midtone: #cecece;
+    --c-white: #fff;
+    --c-error: crimson;
+
+    // fonts
+    --font-lg: 4em;
+    --font-md: 2em;
+    --font-sm: 1em;
+
+    // gaps
+    --gap-lg: 4em;
+    --gap-md: 2em;
+    --gap-sm: 1em;
+    --gap-xs: .5em;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    background-attachment: fixed;
+    background-image: url("/html-css-js/resources/img/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    backdrop-filter: blur(8px);
+}
+
+#logo {
+    fill: var(--c-theme);
+}
+
+input:focus {
+    outline-color: var(--c-theme);
+}

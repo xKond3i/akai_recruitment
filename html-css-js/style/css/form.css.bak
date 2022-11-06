@@ -33,7 +33,7 @@ body {
 }
 
 /*
-selektor gwiazdki oznacza, że odnosimy się do konkretnego 'id' w pliku html.
+selektor # (ang. hash, pot. "kratka" lub "płotek") oznacza, że odnosimy się do konkretnego 'id' w pliku html.
 w tym przypadku odnosimy się do id "task-frontend".
 Zobacz, co się kryje pod tym id w pliku index.html.
 */

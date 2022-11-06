@@ -9,3 +9,9 @@
     Powodzenia!
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+const form = document.querySelector('form#recruitment')
+
+form.addEventListener('submit', e => {
+    e.preventDefault()
+})
