@@ -43,21 +43,24 @@
 					<div class="input__group">
 						<label for="first-name">Imię</label>
 						<input type="text" id="first-name"/>
+						<span class="error">Wprowadź poprawne dane...</span>
 					</div>
 		
 					<div class="input__group">
 						<label for="last-name">Nazwisko</label>
 						<input type="text" id="last-name"/>
+						<span class="error">Wprowadź poprawne dane...</span>
 					</div>
 		
 					<div class="input__group">
 						<label for="email">Email</label>
 						<input type="email" id="email"/>
+						<span class="error">Wprowadź poprawne dane...</span>
 					</div>	
 				</fieldset>
 				
 				<span class="fieldset__title">Sekcje, które Cię interesują:</span>
-				<fieldset class="reversed">
+				<fieldset class="reversed" data-validity-rule="at-least-one">
 					<div class="input__group">
 						<input type="checkbox" id="frontend-checkbox" name="section" value="frontend">
 						<label for="frontend-checkbox">Frontend</label>

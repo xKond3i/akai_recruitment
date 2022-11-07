@@ -1,1 +1,137 @@
-@import"https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap";*{margin:0;padding:0;box-sizing:border-box;font-family:"Quicksand",sans-serif;accent-color:var(--c-theme);--c-theme: #604bc9;--c-black: #242424;--c-midtone: #cecece;--c-white: #fff;--c-error: crimson;--font-lg: 4em;--font-md: 2em;--font-sm: 1em;--gap-lg: 4em;--gap-md: 2em;--gap-sm: 1em;--gap-xs: .5em}body{width:100%;height:100%;min-height:100vh;background-attachment:fixed;background-image:url("/html-css-js/resources/img/bg.jpg");background-repeat:no-repeat;background-size:cover;background-position:center;backdrop-filter:blur(8px)}#logo{fill:var(--c-theme)}input:focus{outline-color:var(--c-theme)}section{width:100vw;height:100%;padding:var(--gap-md)}section#task-frontend{min-height:100vh;display:grid;place-items:center}section#task-frontend .basic-title{color:var(--c-theme);font-size:var(--font-md);font-weight:bold}.form{gap:var(--gap-sm);display:flex;flex-direction:column}.form .fieldset__title{color:var(--c-theme);font-weight:bold}.form fieldset{display:grid;align-items:center;grid-template-columns:max-content auto;border:none;gap:var(--gap-xs) var(--gap-sm)}.form fieldset .input__group{display:contents}.form fieldset .input__group>label{grid-column:1}.form fieldset .input__group>input{grid-column:2}.form fieldset .input__group.invalid>label{color:var(--c-error)}.form fieldset .input__group.invalid>input{border:2px solid var(--c-error)}.form fieldset.reversed .input__group>label{grid-column:2}.form fieldset.reversed .input__group>input{grid-column:1}.form__container{background:rgba(255,255,255,.5);border-radius:var(--gap-sm);padding:var(--gap-md);gap:var(--gap-md);display:flex;flex-direction:column}.form__header{display:grid;place-items:center;text-align:center}.form__header #logo{height:var(--font-lg)}input{padding:var(--gap-xs) var(--gap-sm);border-radius:var(--gap-sm);border:none;transition:filter .5s ease-in-out}input:hover{filter:brightness(0.9)}input[type=submit],button{background-color:var(--c-theme);color:var(--c-white);cursor:pointer}/*# sourceMappingURL=main.min.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+  accent-color: var(--c-theme);
+  --c-theme: #604bc9;
+  --c-black: #242424;
+  --c-midtone: #cecece;
+  --c-white: #fff;
+  --c-error: crimson;
+  --font-lg: 4em;
+  --font-md: 2em;
+  --font-sm: 1em;
+  --gap-lg: 4em;
+  --gap-md: 2em;
+  --gap-sm: 1em;
+  --gap-xs: .5em;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-image: url("/html-css-js/resources/img/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(8px);
+}
+
+#logo {
+  fill: var(--c-theme);
+}
+
+input:focus {
+  outline-color: var(--c-theme);
+}
+
+section {
+  width: 100vw;
+  height: 100%;
+  padding: var(--gap-md);
+}
+
+section#task-frontend {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+section#task-frontend .basic-title {
+  color: var(--c-theme);
+  font-size: var(--font-md);
+  font-weight: bold;
+}
+
+.form {
+  gap: var(--gap-sm);
+  display: flex;
+  flex-direction: column;
+}
+.form .fieldset__title {
+  color: var(--c-theme);
+  font-weight: bold;
+}
+.form fieldset {
+  display: grid;
+  align-items: center;
+  grid-template-columns: max-content auto;
+  border: none;
+  gap: var(--gap-xs) var(--gap-sm);
+}
+.form fieldset .input__group {
+  display: contents;
+}
+.form fieldset .input__group > label {
+  grid-column: 1;
+}
+.form fieldset .input__group > input {
+  grid-column: 2;
+}
+.form fieldset .input__group > .error {
+  display: none;
+  grid-column: 1/3;
+  color: var(--c-error);
+}
+.form fieldset .input__group.invalid > label {
+  color: var(--c-error);
+}
+.form fieldset .input__group.invalid > input {
+  border: 2px solid var(--c-error);
+}
+.form fieldset .input__group.invalid > .error {
+  display: block;
+}
+.form fieldset.reversed .input__group > label {
+  grid-column: 2;
+}
+.form fieldset.reversed .input__group > input {
+  grid-column: 1;
+}
+.form__container {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--gap-sm);
+  padding: var(--gap-md);
+  gap: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+}
+.form__header {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.form__header #logo {
+  height: var(--font-lg);
+}
+
+input {
+  padding: var(--gap-xs) var(--gap-sm);
+  border-radius: var(--gap-sm);
+  border: none;
+  transition: filter 0.5s ease-in-out;
+}
+input:hover {
+  filter: brightness(0.9);
+}
+
+input[type=submit], button {
+  background-color: var(--c-theme);
+  color: var(--c-white);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=main.min.css.map */
