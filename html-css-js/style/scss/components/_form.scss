@@ -96,4 +96,11 @@ input[type=submit], button {
   color: var(--c-white);
 
   cursor: pointer;
+
+  &:disabled {
+    background-color: var(--c-midtone);
+    color: var(--c-black);
+
+    cursor: not-allowed;
+  }
 }

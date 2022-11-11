@@ -10,51 +10,138 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+// [!] Code needs a LOT of cleaning and refactoring (guard clauses, etc), but I ran out of time... :<
+// But it serves its purpose. :>
+
+const throttle = (cb, delay = 1000) => {
+    let wait = false
+    let waiting_args
+
+    const timeout_func = () => {
+        if (waiting_args == null) {
+            wait = false
+        } else {
+            cb(...waiting_args)
+            waiting_args = null
+            setTimeout(timeout_func, delay)
+        }
+    }
+
+    return (...args) => {
+        if (wait) {
+            waiting_args = args
+            return
+        }
+
+        cb(...args)
+        wait = true
+
+        setTimeout(timeout_func, delay)
+    }
+}
+
 // solution isn't too universal and probably overengineered, but it serves its purpouse
 const form = document.querySelector('form#recruitment')
+const submit = form.querySelector('input[type=submit]') || form.querySelector('button[type=submit]')
 const fieldsets = form.querySelectorAll('fieldset')
-const input_groups = form.querySelectorAll('.input__group')
 
-let form_valid = true
+// lock before interaction
+submit.disabled = true
 
-const validity_rules = [{field: 'text', rule: check_text_validity}, {field: 'email', rule: check_email_validity}, {type: 'at-least-one', rule: check_at_least_one_validity}]
+const show_error = (input_group, error_msg = 'Wprowadź poprawne dane') => {
+    const error_box = input_group.querySelector('span.error')
+    error_box.innerText = error_msg
+    input_group.classList.add('invalid')
+}
 
-function check_text_validity(value) {
-    if (value.length == 0) return false
+const check_form_validity = throttle(() => {
+    const invalid = form.querySelectorAll('.invalid').length > 0 ? 1 : 0
+    submit.disabled = invalid;
+})
+
+const check__basic_validity = (input_group) => {
+    const value = input_group.querySelector('input').value
+    if (value.length < 1) {
+        show_error(input_group, 'Pole nie może być puste')
+        return false
+    }
     return true
 }
 
-function check_email_validity(value) {
-    if (value.length == 0) return false
+const check_email_validity = (input_group) => {
+    const value = input_group.querySelector('input').value
     // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
     const email_validator = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-    if (!value.match(email_validator)) return false
+    if (!value.match(email_validator)) {
+        show_error(input_group)
+        return false
+    }
     return true
 }
 
-function check_at_least_one_validity(fieldset) {
-    // todo
+const check_at_least_one = (input_groups) => {
+    return input_groups.some(input_group => {
+        let input = input_group.querySelector('input')
+        return input.checked
+    })
+}
+
+for (const fieldset of fieldsets) {
+    const validity_rule = fieldset.getAttribute('data-validity-rule')
+
+    if (validity_rule === 'at-least-one') {
+        fieldset.classList.add('invalid') // fail first time
+
+        const input_groups = fieldset.querySelectorAll('.input__group')
+
+        for (const input_group of input_groups) {
+            const input = input_group.querySelector('input')
+            
+            input.addEventListener('change', () => {
+                let valid = check_at_least_one([...input_groups])
+
+                fieldset.classList.toggle('invalid', !valid)
+
+                check_form_validity()
+            })
+        }
+    } else {
+        const input_groups = fieldset.querySelectorAll('.input__group')
+    
+        for (const input_group of input_groups) {
+            const input = input_group.querySelector('input')
+    
+            // `focus` and `input` could be used better for better UX
+            input.addEventListener('input', () => { check_form_validity() })
+            input.addEventListener('focus', () => { check_form_validity() })
+
+            input.addEventListener('blur', e => {
+                let valid = true
+    
+                valid = check__basic_validity(input_group) // if in input, should be throttled too
+                if (input.type === 'email') valid = check_email_validity(input_group) // if in input, should be throttled too
+    
+                if (valid) input_group.classList.remove('invalid')
+    
+                check_form_validity()
+            })
+        }
+    }
 }
 
 form.addEventListener('submit', e => {
     e.preventDefault()
 
-    form_valid = true
-    // check validity based on fieldset and field
+    const fields = form.elements
 
-    for (const input_group of input_groups) {
-        const input = input_group.querySelector('input')
-
-        for (const rule of validity_rules) {
-            if (input.type !== rule.field) continue
-
-            let field_valid = rule.rule(input.value)
-            if (!field_valid) form_valid = false
-            input_group.classList.toggle('invalid', !field_valid)
-            // we could also change error text, but validity functions would have to provide that
-            break
-        }
+    const data = {
+        first_name: fields['first-name'],
+        last_name: fields['last-name'],
+        email: fields.email,
+        section: [[...fields]
+                 .filter(field => field.name === 'section' && field.checked)
+                 .map(field => field.value)]
     }
-})
 
-// TBC
+    console.log(data)
+})
